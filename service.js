@@ -6,7 +6,7 @@ const dayjs = require("dayjs")
 exports.checkUser = (req, res) => {
   let info = req.body;
   let data = [info.name, info.name, info.password]
-  let sql = "select user_id from user where user_name=? and user_state = 1 and (select count(*) from user where user_name=? and user_password=?) = 1";
+  let sql = "select user_id from user where user_name=? and (select count(*) from user where user_name=? and user_password=?) = 1";
   db.base(sql, data, result => {
     if (result[0] != undefined) {
       let userId = result[0].user_id
