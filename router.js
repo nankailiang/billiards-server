@@ -53,6 +53,15 @@ router.post("/setRecharge", service.setRecharge);
 //查询分区信息
 router.post("/zone", service.getZone)
 
+//添加分区信息
+router.post("/addZone", service.addZone)
+
+//删除分区信息
+router.post("/deleteZone", service.deleteZone)
+
+//编辑分区信息
+router.post("/editZone", service.editZone)
+
 //查询球桌信息
 router.post("/table", service.getTable);
 

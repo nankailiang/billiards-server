@@ -38,15 +38,15 @@ exports.getUserInfo = (req, res) => {
   let token = req.headers.authorzation
   jwt.checkToken(token).then(resData => {
     data = resData.userId
-    let sql = "select user_call from user where user_id=?"
+    let sql = "select * from user where user_id=?"
     db.base(sql, data, result => {
       let call = result[0].user_call
       if (call != "") {
         res.json({
           code: 201,
           msg: "获取成功！",
-          call: call
-        });
+          data: result[0]
+        })
       } else {
         return res.json({
           code: 507,
@@ -66,15 +66,15 @@ exports.getUserInfo = (req, res) => {
 //获取所有的用户信息
 exports.getUser = (req, res) => {
   let data = ''
-  let sql = "select * from user";
+  let sql = "select * from user"
   db.base(sql, data, result => {
     res.json({
       code: 201,
       msg: "获取成功！",
       data: result
-    });
-  });
-};
+    })
+  })
+}
 
 //添加用户
 exports.addUser = (req, res) => {
@@ -263,16 +263,56 @@ exports.setRecharge = (req, res) => {
 let zoneInfo
 exports.getZone = (req, res) => {
   let data = ''
-  let sql = "select * from zone";
+  let sql = "select * from zone"
   db.base(sql, data, result => {
     zoneInfo = result
     res.json({
       code: 201,
       msg: "获取成功！",
       data: result
-    });
-  });
-};
+    })
+  })
+}
+
+//添加分区
+exports.addZone = (req, res) => {
+  let data = req.body
+  let sql = "insert into zone set ?"
+  db.base(sql, data, result => {
+    res.json({
+      code: 201,
+      msg: "添加成功",
+      result
+    })
+  })
+}
+
+//删除分区
+exports.deleteZone = (req, res) => {
+  let data = req.body.zone_id
+  let sql = "delete from zone where zone_id = ?"
+  db.base(sql, data, result => {
+    res.json({
+      code: 201,
+      msg: "删除成功",
+      result
+    })
+  })
+}
+
+//编辑分区信息
+exports.editZone = (req, res) => {
+  let info = req.body
+  let data = [info.zone_name, info.zone_money, info.zone_id]
+  let sql = "update zone set zone_name = ?,zone_money = ? where zone_id = ?"
+  db.base(sql, data, result => {
+    console.log('编辑成功')
+    res.json({
+      code: 201,
+      msg: "编辑成功"
+    })
+  })
+}
 
 //获取所有球桌信息
 exports.getTable = (req, res) => {
