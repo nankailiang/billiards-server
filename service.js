@@ -303,8 +303,8 @@ exports.deleteZone = (req, res) => {
 //编辑分区信息
 exports.editZone = (req, res) => {
   let info = req.body
-  let data = [info.zone_name, info.zone_money, info.zone_id]
-  let sql = "update zone set zone_name = ?,zone_money = ? where zone_id = ?"
+  let data = [info.zone_name, info.zone_money,info.member_money, info.zone_id]
+  let sql = "update zone set zone_name = ?,zone_money = ?,member_money = ? where zone_id = ?"
   db.base(sql, data, result => {
     console.log('编辑成功')
     res.json({
