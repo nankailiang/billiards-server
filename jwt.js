@@ -4,7 +4,7 @@ const screat = toString(Math.floor(Math.random()*10000));
 function createToken(payload){
 	//产生token
 	//可加其他字段
-	return jwt.sign(payload,screat,{expiresIn: '12h'})   //设置过期时间1h
+	return jwt.sign(payload,screat,{expiresIn: '12h'})   //设置过期时间12h
 }
 
 //验证token
